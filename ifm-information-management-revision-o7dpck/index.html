@@ -1,0 +1,789 @@
+<!doctype html>
+<html lang="zh-Hant" data-lang="zh">
+<head>
+<meta http-equiv="Content-Security-Policy" content="object-src 'none'; base-uri 'none'" data-dsh-artifacts>
+<meta name="robots" content="noindex, nofollow" data-dsh-artifacts>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IFM 期中複習 · Mid-term Revision</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2314635C'/%3E%3Ctext x='16' y='22' font-family='Helvetica,Arial' font-size='13' font-weight='700' fill='%23DCEBEF' text-anchor='middle'%3EIF%3C/text%3E%3C/svg%3E">
+<meta name="description" content="CCIT4057 Information Management mid-term revision notes and a 15-question multi-select mock test, bilingual English (UK) / Traditional Chinese.">
+<style>
+  :root{
+    color-scheme: light dark;
+    --bg:#F7F9FA; --panel:#FFFFFF; --ink:#17202B; --ink-soft:#3A4855; --muted:#61707E;
+    --line:#E1E8EE; --line-strong:#CFDAE2;
+    --accent:#14635C; --accent-mid:#1E7A71; --accent-soft:#E8F3F1; --accent-line:#BFDCD6;
+    --navy:#22405F; --navy-soft:#EDF2F7;
+    --warn:#A8502B; --warn-soft:#FBEDE7; --warn-line:#EBCDBF;
+    --gold:#8A6320; --gold-soft:#FAF3E2;
+    --radius:12px; --shadow:0 1px 2px rgba(16,32,48,.05), 0 8px 24px -18px rgba(16,32,48,.35);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0E1418; --panel:#151D23; --ink:#E7EEF3; --ink-soft:#C6D2DB; --muted:#93A2AE;
+      --line:#25313A; --line-strong:#33424D;
+      --accent:#6CC3B4; --accent-mid:#8BD3C7; --accent-soft:#15302D; --accent-line:#2A4A46;
+      --navy:#9CBAD8; --navy-soft:#1A252E;
+      --warn:#E2A184; --warn-soft:#2C1E18; --warn-line:#4A3126;
+      --gold:#DCC089; --gold-soft:#2A2417;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -20px rgba(0,0,0,.9);
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans TC","Songti TC",sans-serif;
+    font-size:16.5px; line-height:1.7; -webkit-font-smoothing:antialiased;
+  }
+  html[data-lang="zh"] body{line-height:1.78}
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    position:sticky; top:0; z-index:50; backdrop-filter:saturate(180%) blur(14px);
+    background:color-mix(in srgb, var(--panel) 88%, transparent);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar-in{max-width:1180px; margin:0 auto; padding:.55rem 1.1rem; display:flex; align-items:center; gap:1rem}
+  .brand{display:flex; align-items:center; gap:.6rem; min-width:0}
+  .brand-mark{
+    width:30px; height:30px; border-radius:9px; flex:none;
+    background:linear-gradient(150deg,#14635C,#0E3B43); color:#DCEBEF;
+    display:grid; place-items:center; font-weight:700; font-size:13px; letter-spacing:.02em;
+  }
+  .brand-text{min-width:0}
+  .brand-text b{display:block; font-size:15px; letter-spacing:.01em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .brand-text span{display:block; font-size:12px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .topbar-spacer{flex:1}
+  .lang{
+    display:flex; align-items:center; gap:2px; padding:3px; border:1px solid var(--line-strong);
+    border-radius:999px; background:var(--panel);
+  }
+  .lang button{
+    appearance:none; border:0; background:transparent; color:var(--muted); cursor:pointer;
+    font:inherit; font-size:12.5px; font-weight:600; letter-spacing:.02em;
+    padding:.32rem .7rem; border-radius:999px; line-height:1.2;
+  }
+  .lang button[aria-pressed="true"]{background:var(--accent); color:#fff}
+  .lang button:focus-visible{outline:2px solid var(--accent-mid); outline-offset:2px}
+
+  /* ---------- layout ---------- */
+  .shell{max-width:1180px; margin:0 auto; display:grid; grid-template-columns:250px minmax(0,1fr); gap:2.2rem; padding:1.6rem 1.1rem 4rem}
+  @media (max-width:900px){
+    .shell{grid-template-columns:minmax(0,1fr); gap:1rem; padding-top:.8rem}
+  }
+  nav.toc{
+    position:sticky; top:76px; align-self:start; max-height:calc(100vh - 100px); overflow:auto;
+    padding-right:.4rem;
+  }
+  @media (max-width:900px){
+    nav.toc{position:sticky; top:57px; z-index:40; max-height:none; overflow-x:auto; overflow-y:hidden;
+      background:var(--bg); border-bottom:1px solid var(--line); padding:.4rem 0 .5rem;
+      display:flex; gap:.4rem; white-space:nowrap}
+    nav.toc .toc-title{display:none}
+    nav.toc a{display:inline-flex; flex:none}
+  }
+  .toc-title{font-size:11.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin:.2rem 0 .6rem .55rem; font-weight:700}
+  nav.toc a{
+    display:flex; align-items:baseline; gap:.55rem; text-decoration:none; color:var(--ink-soft);
+    padding:.38rem .55rem; border-radius:9px; font-size:14.5px; line-height:1.35;
+    border-left:2px solid transparent;
+  }
+  nav.toc a .n{font-variant-numeric:tabular-nums; font-size:12px; font-weight:700; color:var(--accent); min-width:1.4em}
+  nav.toc a:hover{background:var(--accent-soft); color:var(--ink)}
+  nav.toc a.active{background:var(--accent-soft); border-left-color:var(--accent); color:var(--ink); font-weight:600}
+  nav.toc a:focus-visible{outline:2px solid var(--accent-mid); outline-offset:2px}
+
+  /* ---------- hero ---------- */
+  .hero{padding:.2rem 0 1.2rem; border-bottom:1px solid var(--line); margin-bottom:1.6rem}
+  .kicker{font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+  h1{margin:.35rem 0 .3rem; font-size:clamp(1.7rem,3.2vw,2.35rem); line-height:1.18; letter-spacing:-.015em}
+  .sub-en{color:var(--muted); font-size:14.5px; margin:.1rem 0 1rem}
+  .chips{display:flex; flex-wrap:wrap; gap:.4rem}
+  .chip{
+    font-size:12.5px; padding:.32rem .6rem; border-radius:999px; border:1px solid var(--line-strong);
+    color:var(--ink-soft); background:var(--panel); white-space:nowrap;
+  }
+  .chip b{color:var(--accent); font-weight:700}
+
+  /* ---------- sections ---------- */
+  section{padding:2.1rem 0 .4rem; border-top:1px solid var(--line); scroll-margin-top:86px}
+  section:first-of-type{border-top:0; padding-top:.6rem}
+  @media (max-width:900px){section{scroll-margin-top:112px}}
+  h2{
+    display:flex; align-items:center; gap:.7rem; margin:0 0 .2rem;
+    font-size:clamp(1.28rem,2.1vw,1.55rem); line-height:1.25; letter-spacing:-.01em;
+  }
+  h2 .num{
+    flex:none; min-width:2.1rem; height:2.1rem; padding:0 .5rem; border-radius:10px;
+    background:var(--accent-soft); color:var(--accent); border:1px solid var(--accent-line);
+    display:grid; place-items:center; font-size:13.5px; font-weight:800; letter-spacing:.02em;
+  }
+  h2 .zh-sub{display:block; font-size:.72em; color:var(--muted); font-weight:600; margin-top:.15rem}
+  h3{font-size:1.02rem; margin:1.5rem 0 .5rem; letter-spacing:.01em; color:var(--navy)}
+  p{margin:.55rem 0}
+  strong{font-weight:700}
+  .lead{color:var(--ink-soft)}
+
+  .bi > .en, .bi > .zh{display:block}
+  html[data-lang="en"] .zh{display:none !important}
+  html[data-lang="zh"] .en{display:none !important}
+
+  ul.clean{list-style:none; padding:0; margin:.6rem 0}
+  ul.clean > li{
+    position:relative; padding-left:1.15rem; margin:.42rem 0;
+  }
+  ul.clean > li::before{
+    content:""; position:absolute; left:.18rem; top:.72em; width:6px; height:6px; border-radius:2px;
+    background:var(--accent); opacity:.65;
+  }
+
+  /* cards */
+  .card{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:.95rem 1.05rem; box-shadow:var(--shadow); margin:1rem 0;
+  }
+  .card.def{border-left:3px solid var(--navy); background:var(--navy-soft); border-color:var(--line)}
+  .card.def .t{color:var(--navy)}
+  .card.trap{border-left:3px solid var(--warn); background:var(--warn-soft); border-color:var(--warn-line)}
+  .card.trap .t{color:var(--warn)}
+  .card.tip{border-left:3px solid var(--gold); background:var(--gold-soft)}
+  .card.tip .t{color:var(--gold)}
+  .card .t{font-size:12px; letter-spacing:.1em; text-transform:uppercase; font-weight:800; margin-bottom:.35rem}
+  html[data-lang="zh"] .card .t{letter-spacing:.02em}
+
+  /* formula / code */
+  code, .mono{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:.92em; background:var(--accent-soft); color:var(--accent);
+    padding:.1em .38em; border-radius:5px; border:1px solid var(--accent-line);
+    white-space:nowrap;
+  }
+  .codeblock{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:14px; line-height:1.7;
+    background:var(--panel); border:1px solid var(--line); border-left:3px solid var(--accent);
+    border-radius:10px; padding:.8rem 1rem; overflow-x:auto; margin:.9rem 0;
+  }
+  .codeblock div{white-space:pre}
+  .codeblock .c{color:var(--muted)}
+
+  /* tables */
+  .tablewrap{overflow-x:auto; margin:1rem 0; border:1px solid var(--line); border-radius:var(--radius); background:var(--panel)}
+  table{border-collapse:collapse; width:100%; font-size:14.8px; min-width:520px}
+  th, td{padding:.6rem .8rem; text-align:left; vertical-align:top; border-bottom:1px solid var(--line)}
+  thead th{background:var(--accent); color:#fff; font-size:12.5px; letter-spacing:.06em; text-transform:uppercase; font-weight:700}
+  html[data-lang="zh"] thead th{letter-spacing:.02em; text-transform:none; font-size:13px}
+  tbody tr:nth-child(even){background:color-mix(in srgb, var(--bg) 60%, var(--panel))}
+  tbody tr:last-child td{border-bottom:0}
+  td b{color:var(--accent)}
+
+  /* flow diagram */
+  .flow{display:flex; flex-wrap:wrap; align-items:center; gap:.5rem; margin:1rem 0}
+  .flow .box{
+    background:var(--panel); border:1px solid var(--line-strong); border-radius:10px;
+    padding:.5rem .8rem; font-size:14px; font-weight:600; color:var(--ink-soft);
+  }
+  .flow .box.hot{border-color:var(--accent-line); background:var(--accent-soft); color:var(--accent)}
+  .flow .arw{color:var(--muted); font-size:15px}
+
+  /* ---------- mock ---------- */
+  .mockbar{
+    display:flex; flex-wrap:wrap; align-items:center; gap:.55rem; margin:1rem 0 1.2rem;
+    padding:.8rem .9rem; background:var(--panel); border:1px solid var(--line);
+    border-radius:var(--radius); box-shadow:var(--shadow); position:sticky; top:64px; z-index:30;
+  }
+  @media (max-width:900px){.mockbar{top:104px}}
+  .btn{
+    appearance:none; font:inherit; font-size:14px; font-weight:600; cursor:pointer;
+    padding:.5rem .95rem; border-radius:9px; border:1px solid var(--accent);
+    background:var(--accent); color:#fff; line-height:1.2;
+  }
+  .btn.ghost{background:transparent; color:var(--accent)}
+  .btn.ghost:hover{background:var(--accent-soft)}
+  .btn:focus-visible{outline:2px solid var(--accent-mid); outline-offset:2px}
+  .score{margin-left:auto; font-size:14px; color:var(--muted); font-variant-numeric:tabular-nums}
+  .score b{color:var(--accent); font-size:19px}
+
+  .q{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:1rem 1.05rem; margin:.85rem 0; box-shadow:var(--shadow);
+  }
+  .q-head{display:flex; align-items:baseline; gap:.55rem; margin-bottom:.35rem}
+  .q-n{
+    flex:none; font-weight:800; font-size:13px; color:var(--accent);
+    background:var(--accent-soft); border:1px solid var(--accent-line); border-radius:7px; padding:.1rem .45rem;
+  }
+  .q-stem{font-weight:600}
+  .opts{list-style:none; margin:.7rem 0 0; padding:0; display:grid; gap:.35rem}
+  .opt{display:flex; gap:.6rem; align-items:flex-start; padding:.45rem .55rem; border-radius:9px; border:1px solid transparent; cursor:pointer}
+  .opt:hover{background:var(--accent-soft)}
+  .opt input{margin-top:.32rem; accent-color:var(--accent); width:16px; height:16px; flex:none}
+  .opt .l{font-weight:800; color:var(--accent); width:1.1em; flex:none}
+  .opt .txt{min-width:0}
+  .q.graded .opt{cursor:default}
+  .q.ok{border-color:var(--accent-line)}
+  .q.bad{border-color:var(--warn-line)}
+  .opt.right{background:var(--accent-soft); border-color:var(--accent-line)}
+  .opt.wrong{background:var(--warn-soft); border-color:var(--warn-line)}
+  .verdict{display:none; margin-top:.75rem; padding-top:.7rem; border-top:1px dashed var(--line-strong); font-size:14.5px}
+  .q.graded .verdict{display:block}
+  .verdict .tag{font-weight:800; font-size:12.5px; letter-spacing:.08em; text-transform:uppercase}
+  .q.ok .verdict .tag{color:var(--accent)}
+  .q.bad .verdict .tag{color:var(--warn)}
+  .verdict .key{font-weight:700; color:var(--accent)}
+  .verdict .expl{margin-top:.35rem; color:var(--ink-soft)}
+
+  footer{border-top:1px solid var(--line); margin-top:2.5rem; padding:1.4rem 0 2rem; color:var(--muted); font-size:13px}
+  .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0}
+  a.top{color:var(--accent); text-decoration:none}
+  a.top:hover{text-decoration:underline}
+  @media print{.topbar,nav.toc,.mockbar{display:none}.shell{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-in">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">IFM</div>
+      <div class="brand-text">
+        <b>Information Management · 期中複習</b>
+        <span class="bi"><span class="en">CCIT4057 · mid-term scope · 9 topics + mock test</span><span class="zh">CCIT4057 · 期中考範圍 · 9 個課題＋模擬自測</span></span>
+      </div>
+    </div>
+    <div class="topbar-spacer"></div>
+    <div class="lang" role="group" aria-label="Language / 語言">
+      <button type="button" data-set-lang="en" aria-pressed="false">English (UK)</button>
+      <button type="button" data-set-lang="zh" aria-pressed="true">繁中</button>
+    </div>
+  </div>
+</div>
+
+<div class="shell">
+  <nav class="toc" aria-label="Contents">
+    <div class="toc-title">Contents · 目錄</div>
+    <a href="#s1"><span class="n">01</span><span class="bi"><span class="en">Foundations</span><span class="zh">資訊系統基礎</span></span></a>
+    <a href="#s2"><span class="n">02</span><span class="bi"><span class="en">Measuring IT value</span><span class="zh">衡量 IT 價值</span></span></a>
+    <a href="#s3"><span class="n">03</span><span class="bi"><span class="en">SDLC</span><span class="zh">軟件開發生命週期</span></span></a>
+    <a href="#s4"><span class="n">04</span><span class="bi"><span class="en">Security</span><span class="zh">網絡安全</span></span></a>
+    <a href="#s5"><span class="n">05</span><span class="bi"><span class="en">Solvers</span><span class="zh">優化求解</span></span></a>
+    <a href="#s6"><span class="n">06</span><span class="bi"><span class="en">DSS</span><span class="zh">決策支援系統</span></span></a>
+    <a href="#s7"><span class="n">07</span><span class="bi"><span class="en">TPS</span><span class="zh">交易處理系統</span></span></a>
+    <a href="#s8"><span class="n">08</span><span class="bi"><span class="en">E-commerce</span><span class="zh">電子商務</span></span></a>
+    <a href="#s9"><span class="n">09</span><span class="bi"><span class="en">Excel formulas</span><span class="zh">試算表公式</span></span></a>
+    <a href="#s10"><span class="n">10</span><span class="bi"><span class="en">Cram sheet</span><span class="zh">考前速記</span></span></a>
+    <a href="#mock"><span class="n">11</span><span class="bi"><span class="en">Mock test</span><span class="zh">模擬自測</span></span></a>
+  </nav>
+
+  <main>
+    <div class="hero">
+      <div class="kicker">CCIT4057 · Information Management</div>
+      <h1 class="bi"><span class="en">Mid-term revision, condensed</span><span class="zh">期中考重點，一頁讀完</span></h1>
+      <p class="sub-en bi"><span class="en">Everything on the paper, cut to the examinable core — then fifteen multi-select questions that mark themselves.</span><span class="zh">把考卷會考的東西削到最精簡，最後附 15 題自動批改的多項選擇題。</span></p>
+      <div class="chips">
+        <span class="chip bi"><span class="en"><b>15</b> multi-select · <b>2</b> marks each · all correct only</span><span class="zh"><b>15</b> 題多選・每題 <b>2</b> 分・全對才得分</span></span>
+        <span class="chip bi"><span class="en"><b>9</b> topics in scope</span><span class="zh">範圍共 <b>9</b> 個課題</span></span>
+        <span class="chip bi"><span class="en">Excel formulas + Solver constraints</span><span class="zh">Excel 公式＋Solver 限制條件</span></span>
+      </div>
+    </div>
+
+    <!-- 01 -->
+    <section id="s1">
+      <h2><span class="num">01</span><span class="bi"><span class="en">Foundations<span class="zh-sub">資訊系統基礎</span></span><span class="zh">資訊系統基礎<span class="zh-sub">Foundations</span></span></span></h2>
+
+      <div class="card def">
+        <div class="t"><span class="bi"><span class="en">The one distinction</span><span class="zh">唯一的分辨點</span></span></div>
+        <p class="bi"><span class="en"><strong>Data</strong> are raw facts with no meaning on their own — a phone number, a height, an exam score, a list of everything sold today. <strong>Information</strong> is data processed into meaning that supports a decision — a class average, a pass rate, actual versus forecast sales.</span><span class="zh"><strong>數據</strong>是本身沒有意義的原始事實——電話號碼、身高、考試分數、今日售出貨品清單。<strong>資訊</strong>是經過處理、能支持決策的有意義結果——班平均、及格率、實際與預測銷售額的比較。</span></p>
+        <p class="bi"><span class="en">Test: if a calculation across records was needed, it is information. If it can be read straight off a receipt, it is data.</span><span class="zh">判斷法：需要跨紀錄計算才得出的，是資訊；能直接從收據讀出的，是數據。</span></p>
+      </div>
+
+      <h3 class="bi"><span class="en">A system has seven parts</span><span class="zh">系統有七個部分</span></h3>
+      <div class="flow" aria-hidden="true">
+        <span class="box hot"><span class="bi"><span class="en">Input</span><span class="zh">輸入</span></span></span><span class="arw">→</span>
+        <span class="box"><span class="bi"><span class="en">Processes</span><span class="zh">處理</span></span></span><span class="arw">→</span>
+        <span class="box"><span class="bi"><span class="en">Output</span><span class="zh">輸出</span></span></span><span class="arw">↺</span>
+        <span class="box"><span class="bi"><span class="en">Feedback</span><span class="zh">回饋</span></span></span>
+      </div>
+      <ul class="clean">
+        <li class="bi"><span class="en">System, <strong>boundary</strong> (the functions inside), <strong>environment</strong> (external entities), inputs, processes, outputs, feedback.</span><span class="zh">系統本身、<strong>邊界</strong>（界內功能）、<strong>環境</strong>（外部實體）、輸入、處理程序、輸出、回饋。</span></li>
+        <li class="bi"><span class="en">ATM example: input = card, PIN, amount; process = verify, debit, dispense; output = cash, updated balance, receipt; customers sit outside the boundary.</span><span class="zh">自動櫃員機例子：輸入＝銀行卡、密碼、金額；處理＝核對、扣帳、出鈔；輸出＝現金、更新後餘額、收據；顧客在邊界之外。</span></li>
+        <li class="bi"><span class="en">Positive feedback raises motivation; negative feedback corrects activity that is not reaching the goal.</span><span class="zh">正向回饋提升動機；負向回饋糾正未達目標的行為。</span></li>
+        <li class="bi"><span class="en">Why computers: speed, reliability, consistency, storage, communication.</span><span class="zh">用電腦的理由：速度、可靠、一致、儲存、通訊。</span></li>
+      </ul>
+
+      <div class="card trap">
+        <div class="t"><span class="bi"><span class="en">Trap</span><span class="zh">易錯位</span></span></div>
+        <p class="bi"><span class="en">IT is an <strong>enabler</strong> of business success, never a guarantee. Spending more on IT does not by itself produce results — the money has to go to the <em>right</em> kinds of IT.</span><span class="zh">IT 只是成功的<strong>賦能者</strong>，不是保證。多花錢本身不會帶來成果——錢要花在<em>對的</em> IT 上。</span></p>
+      </div>
+    </section>
+
+    <!-- 02 -->
+    <section id="s2">
+      <h2><span class="num">02</span><span class="bi"><span class="en">Measuring IT value<span class="zh-sub">衡量 IT 價值</span></span><span class="zh">衡量 IT 價值<span class="zh-sub">Measuring IT value</span></span></span></h2>
+      <div class="tablewrap">
+        <table>
+          <thead><tr>
+            <th><span class="bi"><span class="en">Efficiency 效率</span><span class="zh">效率</span></span></th>
+            <th><span class="bi"><span class="en">Effectiveness 效能</span><span class="zh">效能</span></span></th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td class="bi"><span class="en">Does the <strong>technology</strong> perform well? Easy to measure.</span><span class="zh">問<strong>技術</strong>本身表現好不好。容易量度。</span></td>
+              <td class="bi"><span class="en">Does the system move the <strong>business</strong> toward its goals? Hard to measure.</span><span class="zh">問系統有沒有把<strong>業務</strong>推向目標。難以量度。</span></td>
+            </tr>
+            <tr>
+              <td class="bi"><span class="en">Throughput · transaction speed · system availability · information accuracy · response time · web traffic</span><span class="zh">吞吐量・交易速度・系統可用度・資訊準確度・回應時間・網站流量</span></td>
+              <td class="bi"><span class="en">Usability (clicks) · customer satisfaction · conversion rate · ROI / cost-benefit · break-even</span><span class="zh">易用性（點擊次數）・客戶滿意度・轉換率・投資回報／成本效益・損益兩平</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <ul class="clean">
+        <li class="bi"><span class="en">A business continuity (resiliency) plan responds in tiers: total loss at one end, then data backup, maintaining transaction integrity, and manual processing at the other.</span><span class="zh">營運持續（韌性）計劃分層應對：一端是全面損失，另一端是資料備份、維持交易完整性、人工處理程序。</span></li>
+        <li class="bi"><span class="en">Canonical example: the CrowdStrike faulty Falcon Sensor update on 19 July 2024 that broke Microsoft Windows worldwide.</span><span class="zh">經典例子：2024 年 7 月 19 日 CrowdStrike 的 Falcon Sensor 錯誤更新，令全球 Microsoft Windows 大規模故障。</span></li>
+      </ul>
+      <div class="card tip">
+        <div class="t"><span class="bi"><span class="en">One-liner</span><span class="zh">一句話</span></span></div>
+        <p class="bi"><span class="en">eBay needs <em>both</em>: constant availability (efficiency) and buyers who actually complete the purchase (effectiveness).</span><span class="zh">eBay 兩者都需要：持續可用（效率）與買家真的完成購買（效能）。</span></p>
+      </div>
+    </section>
+
+    <!-- 03 -->
+    <section id="s3">
+      <h2><span class="num">03</span><span class="bi"><span class="en">The SDLC<span class="zh-sub">軟件開發生命週期</span></span><span class="zh">軟件開發生命週期<span class="zh-sub">The SDLC</span></span></span></h2>
+      <ul class="clean">
+        <li class="bi"><span class="en"><strong>Software</strong> = instructions and data that make a computer work. <strong>Software development</strong> = the whole life of that software. <strong>Programming</strong> = writing code, and it is <strong>stage 4 only</strong>.</span><span class="zh"><strong>軟件</strong>＝令電腦工作的指令與資料。<strong>軟件開發</strong>＝軟件的整個生命周期。<strong>程式編寫</strong>＝寫程式碼，只是<strong>第四階段</strong>。</span></li>
+      </ul>
+      <div class="flow" aria-hidden="true">
+        <span class="box hot"><span class="bi"><span class="en">1 Plan</span><span class="zh">1 規劃</span></span></span><span class="arw">→</span>
+        <span class="box hot"><span class="bi"><span class="en">2 Requirements</span><span class="zh">2 需求定義</span></span></span><span class="arw">→</span>
+        <span class="box hot"><span class="bi"><span class="en">3 Design</span><span class="zh">3 系統設計</span></span></span><span class="arw">→</span>
+        <span class="box hot"><span class="bi"><span class="en">4 Development</span><span class="zh">4 開發</span></span></span><span class="arw">→</span>
+        <span class="box hot"><span class="bi"><span class="en">5 Test</span><span class="zh">5 測試整合</span></span></span><span class="arw">→</span>
+        <span class="box hot"><span class="bi"><span class="en">6 Deploy</span><span class="zh">6 部署維護</span></span></span>
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr>
+            <th><span class="bi"><span class="en">Stage</span><span class="zh">階段</span></span></th>
+            <th><span class="bi"><span class="en">Remember this</span><span class="zh">要記住</span></span></th>
+          </tr></thead>
+          <tbody>
+            <tr><td class="bi"><span class="en">1 Planning &amp; requirement analysis</span><span class="zh">規劃與需求分析</span></td>
+              <td class="bi"><span class="en">Feasibility study (economic, operational, technical, schedule, legal); project proposal; scope. The project plan must be updated in <em>every</em> later phase.</span><span class="zh">可行性研究（經濟、運作、技術、時程、法律）；專案提案；範圍。專案計劃要在之後<em>每個</em>階段持續更新。</span></td></tr>
+            <tr><td class="bi"><span class="en">2 Defining requirements</span><span class="zh">需求定義</span></td>
+              <td class="bi"><span class="en">Functional vs non-functional; elicitation by interview, workshop, survey, focus group, observation, document analysis.</span><span class="zh">功能／非功能需求；透過訪談、工作坊、問卷、焦點小組、觀察、文件分析蒐集。</span></td></tr>
+            <tr><td class="bi"><span class="en">3 System design &amp; analysis</span><span class="zh">系統設計與分析</span></td>
+              <td class="bi"><span class="en">The <strong>Data Flow Diagram belongs here</strong>; SRS becomes the design specification.</span><span class="zh"><strong>資料流程圖屬於這個階段</strong>；需求規格轉為設計規格。</span></td></tr>
+            <tr><td class="bi"><span class="en">4 Development</span><span class="zh">開發</span></td>
+              <td class="bi"><span class="en">Programmers, compilers, debuggers — <strong>programming is stage 4</strong>.</span><span class="zh">程式員、編譯器、除錯器——<strong>程式編寫＝第四階段</strong>。</span></td></tr>
+            <tr><td class="bi"><span class="en">5 Testing &amp; integration</span><span class="zh">測試與整合</span></td>
+              <td class="bi"><span class="en">Test plans, cases, bug reports; minimal testing still happens in every stage.</span><span class="zh">測試計劃、案例、缺陷報告；每階段仍會做最基本的測試。</span></td></tr>
+            <tr><td class="bi"><span class="en">6 Deployment &amp; maintenance</span><span class="zh">部署與維護</span></td>
+              <td class="bi"><span class="en">Released in pilot phases, then patches and new releases driven by user feedback.</span><span class="zh">分階段（試點）上線，之後依使用者回饋推出修補與新版。</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card trap">
+        <div class="t"><span class="bi"><span class="en">Trap · ambiguity</span><span class="zh">易錯位・含糊</span></span></div>
+        <p class="bi"><span class="en">Ambiguous requirements are the leading cause of system failure. “Easy to use”, “fast”, “large amounts of data” cannot be tested. “Respond within 2 seconds” and “support 100 concurrent users” can.</span><span class="zh">需求含糊是系統失敗的首要原因。「易於使用」、「快」、「大量數據」無法驗證；「2 秒內回應」、「支援 100 個並行使用者」才可以。</span></p>
+      </div>
+    </section>
+
+    <!-- 04 -->
+    <section id="s4">
+      <h2><span class="num">04</span><span class="bi"><span class="en">Security<span class="zh-sub">網絡安全</span></span><span class="zh">網絡安全<span class="zh-sub">Security</span></span></span></h2>
+      <ul class="clean">
+        <li class="bi"><span class="en">A <strong>threat</strong> is an event that may break a system's security and cause loss. <strong>Hacking</strong> is the act; a <strong>hacker</strong> is the person; an <strong>intrusion</strong> is the attempt to get in.</span><span class="zh"><strong>威脅</strong>是可能破壞系統安全並造成損失的事件；<strong>入侵行為</strong>是動作本身；<strong>駭客</strong>是人；<strong>入侵</strong>是嘗試闖入。</span></li>
+      </ul>
+      <h3 class="bi"><span class="en">Ten threats, two families</span><span class="zh">十種威脅，兩大家族</span></h3>
+      <div class="tablewrap">
+        <table>
+          <thead><tr>
+            <th><span class="bi"><span class="en">Malware — needs a program on your machine</span><span class="zh">惡意軟件——需要程式在你機器上</span></span></th>
+            <th><span class="bi"><span class="en">Network &amp; social — needs no local program</span><span class="zh">網絡與社交——不需本地程式</span></span></th>
+          </tr></thead>
+          <tbody><tr>
+            <td class="bi"><span class="en"><b>Virus</b> — spreads and infects, can corrupt or delete; harmful even when “harmless” because it eats memory and CPU time.<br><b>Trojan horse</b> — hides inside a legitimate-looking program and opens a back door.<br><b>Spyware</b> — key-loggers and screen capture, sends your data away.<br><b>Adware</b> — unwanted advertisements and pop-ups.</span><span class="zh"><b>病毒</b>——自我複製並感染，可破壞或刪除資料；即使「無害」也有害，因為佔用記憶體與 CPU 時間。<br><b>木馬</b>——藏身於看似合法的程式，開啟後門。<br><b>間諜軟件</b>——鍵盤記錄、螢幕截取，把資料送走。<br><b>廣告軟件</b>——不受歡迎的廣告與彈窗。</span></td>
+            <td class="bi"><span class="en"><b>DDoS</b> — flood the service from many sources until it cannot answer.<br><b>Sniffing</b> — capture and read packets on a network.<br><b>Spamming</b> — unsolicited mail whose links install malware.<br><b>Phishing</b> — pretend to be a trusted entity to extract personal data.<br><b>Bandwidth piracy</b> — free ride on someone else's network.</span><span class="zh"><b>DDoS</b>——從多個來源灌流量，令服務無法回應。<br><b>竊聽</b>——在網絡上截取並讀取封包。<br><b>垃圾郵件</b>——大量未經請求的郵件，連結會安裝惡意程式。<br><b>釣魚</b>——冒充可信機構騙取個人資料。<br><b>頻寬盜用</b>——免費使用他人網絡。</span></td>
+          </tr></tbody>
+        </table>
+      </div>
+      <ul class="clean">
+        <li class="bi"><span class="en"><strong>CIA</strong> — confidentiality (no unauthorised disclosure), integrity (no unauthorised modification), availability (there when needed).</span><span class="zh"><strong>CIA</strong>——機密性（不被未授權揭露）、完整性（不被未授權修改）、可用性（需要時可用）。</span></li>
+        <li class="bi"><span class="en">Controls: <strong>antivirus</strong>, <strong>encryption</strong>, <strong>access control</strong> (username/password, firewall between LAN and WAN, intrusion detection, DMZ), <strong>authentication</strong> (token, SMS one-time PIN, biometrics, digital certificate).</span><span class="zh">防護措施：<strong>防毒</strong>、<strong>加密</strong>、<strong>存取控制</strong>（帳號密碼、LAN 與 WAN 之間的防火牆、入侵偵測、DMZ）、<strong>認證</strong>（權杖、短訊一次性密碼、生物特徵、數位證書）。</span></li>
+        <li class="bi"><span class="en">Public key encrypts, private key decrypts. A certificate authority is the trusted third party that vouches for the public key.</span><span class="zh">公鑰加密、私鑰解密。憑證機構是為公鑰背書的可信第三方。</span></li>
+      </ul>
+      <div class="card trap">
+        <div class="t"><span class="bi"><span class="en">Trap · authentication ≠ authorisation</span><span class="zh">易錯位・認證 ≠ 授權</span></span></div>
+        <p class="bi"><span class="en">Authentication asks “who are you?” and comes first. Authorisation asks “what may you do?” and comes second — a correct password proves identity, never permission.</span><span class="zh">認證問「你是誰」，先發生；授權問「你可以做甚麼」，後發生——密碼正確只證明身份，不代表權限。</span></p>
+      </div>
+    </section>
+
+    <!-- 05 -->
+    <section id="s5">
+      <h2><span class="num">05</span><span class="bi"><span class="en">Solvers and models<span class="zh-sub">優化求解</span></span><span class="zh">求解器與模型<span class="zh-sub">Solvers and models</span></span></span></h2>
+      <ul class="clean">
+        <li class="bi"><span class="en">A solver allocates <strong>scarce resources</strong> (raw materials, machine time, people, money) to find the best outcome — highest profit, lowest cost, best quality.</span><span class="zh">求解器分配<strong>稀缺資源</strong>（原料、機器時間、人力、金錢），找出最佳結果——最高利潤、最低成本、最佳品質。</span></li>
+      </ul>
+      <div class="flow" aria-hidden="true">
+        <span class="box hot"><span class="bi"><span class="en">Decision variables</span><span class="zh">決策變數</span></span></span><span class="arw">+</span>
+        <span class="box hot"><span class="bi"><span class="en">Constraints</span><span class="zh">限制條件</span></span></span><span class="arw">→</span>
+        <span class="box hot"><span class="bi"><span class="en">Objective</span><span class="zh">目標函數</span></span></span>
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr>
+            <th><span class="bi"><span class="en">Piece</span><span class="zh">部分</span></span></th>
+            <th><span class="bi"><span class="en">Excel name</span><span class="zh">Excel 名稱</span></span></th>
+            <th><span class="bi"><span class="en">Example</span><span class="zh">例子</span></span></th>
+          </tr></thead>
+          <tbody>
+            <tr><td class="bi"><span class="en">Decision variables</span><span class="zh">決策變數</span></td>
+              <td class="bi"><span class="en">changing cells</span><span class="zh">變動儲存格</span></td>
+              <td class="bi"><span class="en">units of each product to make</span><span class="zh">每種產品的生產量</span></td></tr>
+            <tr><td class="bi"><span class="en">Constraints</span><span class="zh">限制條件</span></td>
+              <td class="bi"><span class="en">constraint rows</span><span class="zh">限制列</span></td>
+              <td class="bi"><span class="en">machine hours ≤ 8 per day; ball ≥ 40,000 per month; variables ≥ 0</span><span class="zh">每日機器工時 ≤ 8；每月產量 ≥ 40,000；變數 ≥ 0</span></td></tr>
+            <tr><td class="bi"><span class="en">Objective</span><span class="zh">目標函數</span></td>
+              <td class="bi"><span class="en">target cell</span><span class="zh">目標儲存格</span></td>
+              <td class="bi"><span class="en">maximise profit; minimise cost or risk</span><span class="zh">最大化利潤；最小化成本或風險</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul class="clean">
+        <li class="bi"><span class="en">Everything must be a number — “a solver deals with numbers”. Five constraint kinds: general, bounds, policy, physical (non-negativity, balance), integer.</span><span class="zh">一切都必須是數字——「求解器處理的是數字」。五類限制：一般、上下界、政策、物理（非負、平衡）、整數。</span></li>
+        <li class="bi"><span class="en">Three engines: <strong>Simplex LP</strong>, <strong>GRG Nonlinear</strong>, <strong>Evolutionary</strong>.</span><span class="zh">三個引擎：<strong>Simplex LP</strong>、<strong>GRG Nonlinear</strong>、<strong>Evolutionary</strong>。</span></li>
+        <li class="bi"><span class="en">What-if / sensitivity analysis varies the inputs (growth, oil price, salaries) and asks which uncertainty drives the output most.</span><span class="zh">情境／敏感度分析改變輸入（增長率、油價、薪金），問哪個不確定因素對輸出影響最大。</span></li>
+      </ul>
+      <div class="card trap">
+        <div class="t"><span class="bi"><span class="en">Trap</span><span class="zh">易錯位</span></span></div>
+        <p class="bi"><span class="en">Profit is a <em>goal</em>; costs are a <em>constraint</em>. And non-negativity must be stated explicitly — the solver has no other way to know.</span><span class="zh">利潤是<em>目標</em>；成本是<em>限制</em>。非負限制必須明寫，求解器沒有其他方法知道。</span></p>
+      </div>
+    </section>
+
+    <!-- 06 -->
+    <section id="s6">
+      <h2><span class="num">06</span><span class="bi"><span class="en">Decision support systems<span class="zh-sub">決策支援系統</span></span><span class="zh">決策支援系統<span class="zh-sub">Decision support systems</span></span></span></h2>
+      <div class="flow" aria-hidden="true">
+        <span class="box hot"><span class="bi"><span class="en">Intelligence</span><span class="zh">情報</span></span></span><span class="arw">→</span>
+        <span class="box"><span class="bi"><span class="en">Design</span><span class="zh">設計</span></span></span><span class="arw">→</span>
+        <span class="box"><span class="bi"><span class="en">Choice</span><span class="zh">選擇</span></span></span>
+      </div>
+      <ul class="clean">
+        <li class="bi"><span class="en">Herbert Simon's three stages. <strong>Intelligence is the most important</strong>: define the wrong problem and the whole effort is wasted. Symptoms are not problems.</span><span class="zh">Herbert Simon 的三階段。<strong>情報階段最重要</strong>：定義錯問題，整個努力就白費。症狀不是問題。</span></li>
+        <li class="bi"><span class="en">A DSS is a CBIS focused on decision-making <strong>effectiveness</strong>, mostly for mid and top management, useful for semi-structured and unstructured problems.</span><span class="zh">DSS 是專注決策<strong>效能</strong>的 CBIS，主要供中高層管理使用，適合半結構化與非結構化問題。</span></li>
+        <li class="bi"><span class="en">Optimising finds the best solution under the constraints; satisficing accepts one good enough.</span><span class="zh">最優化在限制下求最佳解；滿意化接受足夠好的解。</span></li>
+      </ul>
+      <div class="card def">
+        <div class="t"><span class="bi"><span class="en">Six characteristics</span><span class="zh">六項特徵</span></span></div>
+        <p class="bi"><span class="en"><strong>P</strong>redictive · <strong>S</strong>ummary · <strong>A</strong>d hoc · <strong>U</strong>nexpected · <strong>E</strong>xternal · <strong>S</strong>ubjective.<br>Hook: <em>PSAUES</em>.</span><span class="zh">預測性・彙總・臨時・非預期・外部・主觀。<br>口訣：<em>PSAUES</em>。</span></p>
+        <p class="bi"><span class="en">Predictive = outputs concern the future. Summary = global, not line-by-line. Ad hoc = produced irregularly for one purpose. Unexpected = forecasts surprise managers. External = inputs from outside the firm. Subjective = personal opinion, accuracy suspect.</span><span class="zh">預測性＝輸出關於未來。彙總＝整體而非逐筆。臨時＝為特定目的不定期產生。非預期＝預測常令管理者意外。外部＝輸入來自公司以外。主觀＝個人意見，準確度可議。</span></p>
+      </div>
+    </section>
+
+    <!-- 07 -->
+    <section id="s7">
+      <h2><span class="num">07</span><span class="bi"><span class="en">Transaction processing<span class="zh-sub">交易處理系統</span></span><span class="zh">交易處理系統<span class="zh-sub">Transaction processing</span></span></span></h2>
+      <ul class="clean">
+        <li class="bi"><span class="en">A <strong>transaction</strong> is any business exchange. A <strong>TPS</strong> records completed transactions — the earliest use of computers, and the data foundation a DSS later mines.</span><span class="zh"><strong>交易</strong>是任何業務往來。<strong>TPS</strong> 記錄已完成的交易——最早使用電腦的地方，也是日後 DSS 挖掘資料的基礎。</span></li>
+        <li class="bi"><span class="en">Benefits: lower cost, more speed, more accuracy, better customer service, more data for decisions.</span><span class="zh">效益：降低成本、提升速度、提升準確度、改善客戶服務、為決策提供更多資料。</span></li>
+      </ul>
+      <div class="tablewrap">
+        <table>
+          <thead><tr>
+            <th><span class="bi"><span class="en">Batch</span><span class="zh">批次</span></span></th>
+            <th><span class="bi"><span class="en">On-line (OLTP)</span><span class="zh">線上（OLTP）</span></span></th>
+          </tr></thead>
+          <tbody><tr>
+            <td class="bi"><span class="en">Transactions accumulate, then run as one unit — there is a delay. Payroll, monthly billing, end-of-day reconciliation.</span><span class="zh">交易先累積，再一次處理——存在延誤。薪酬、月結帳單、日終對帳。</span></td>
+            <td class="bi"><span class="en">Each transaction is processed and records updated at once. Airline seats, stock trades, online betting, ATM.</span><span class="zh">每筆交易即時處理、相關紀錄同步更新。機位、股票買賣、網上投注、自動櫃員機。</span></td>
+          </tr></tbody>
+        </table>
+      </div>
+      <div class="card def">
+        <div class="t"><span class="bi"><span class="en">Two sixes — do not mix them up</span><span class="zh">兩個「六」——不要混淆</span></span></div>
+        <p class="bi"><span class="en"><strong>Six activities:</strong> collection · editing · correction · manipulation · storage · document / report production.</span><span class="zh"><strong>六項活動：</strong>收集・編輯・修正・處理・儲存・文件／報表產生。</span></p>
+        <p class="bi"><span class="en"><strong>Six characteristics:</strong> repetitive · predictable · emphasis on the past · detailed · structured · great accuracy.</span><span class="zh"><strong>六項特徵：</strong>重複・可預測・著重過去・詳細・結構化・高度準確。</span></p>
+      </div>
+    </section>
+
+    <!-- 08 -->
+    <section id="s8">
+      <h2><span class="num">08</span><span class="bi"><span class="en">E-commerce<span class="zh-sub">電子商務</span></span><span class="zh">電子商務<span class="zh-sub">E-commerce</span></span></span></h2>
+      <ul class="clean">
+        <li class="bi"><span class="en">An <strong>electronic marketplace</strong> links buyers and sellers over a network; the Internet is the major factor — a “network of networks” of more than 25,000 networks.</span><span class="zh"><strong>電子市場</strong>透過網絡連接買賣雙方；互聯網是主要因素——由超過 25,000 個網絡組成的「網絡的網絡」。</span></li>
+        <li class="bi"><span class="en">Six reasons firms adopt it: globalisation · competitive advantage · information access · cost containment · sales and marketing · electronic communications.</span><span class="zh">企業採用的六個理由：全球化・競爭優勢・資訊取得・成本控制・銷售與市場推廣・電子通訊。</span></li>
+      </ul>
+      <div class="tablewrap">
+        <table>
+          <thead><tr>
+            <th><span class="bi"><span class="en">Form</span><span class="zh">形式</span></span></th>
+            <th><span class="bi"><span class="en">Who is involved</span><span class="zh">參與者</span></span></th>
+            <th><span class="bi"><span class="en">Example</span><span class="zh">例子</span></span></th>
+          </tr></thead>
+          <tbody>
+            <tr><td>B2C</td><td class="bi"><span class="en">business → consumer, no middle-man</span><span class="zh">企業 → 消費者，無中間人</span></td>
+              <td class="bi"><span class="en">Amazon.com; Dell selling you a computer</span><span class="zh">Amazon.com；Dell 直接賣電腦給你</span></td></tr>
+            <tr><td>B2B</td><td class="bi"><span class="en">organisation → organisation (both sides are firms)</span><span class="zh">組織 → 組織（雙方都是企業）</span></td>
+              <td class="bi"><span class="en">Intel selling CPUs to Dell; Heinz selling ketchup to McDonald's</span><span class="zh">Intel 賣 CPU 給 Dell；Heinz 賣番茄醬給麥當勞</span></td></tr>
+            <tr><td>C2C</td><td class="bi"><span class="en">consumer → consumer, individuals on both sides</span><span class="zh">消費者 → 消費者，雙方都是個人</span></td>
+              <td class="bi"><span class="en">eBay — second-hand items sold directly between users</span><span class="zh">eBay——使用者之間直接買賣二手物品</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card trap">
+        <div class="t"><span class="bi"><span class="en">Trap</span><span class="zh">易錯位</span></span></div>
+        <p class="bi"><span class="en">B2B means both sides are <em>organisations</em>, not “business products”. A chip that later reaches a consumer still travels through a B2B transaction.</span><span class="zh">B2B 指雙方都是<em>組織</em>，不是「商業產品」。晶片日後進入消費市場，該筆交易仍是 B2B。</span></p>
+      </div>
+    </section>
+
+    <!-- 09 -->
+    <section id="s9">
+      <h2><span class="num">09</span><span class="bi"><span class="en">Excel formulas<span class="zh-sub">試算表公式</span></span><span class="zh">試算表公式<span class="zh-sub">Excel formulas</span></span></span></h2>
+      <ul class="clean">
+        <li class="bi"><span class="en">Always write <strong>cell labels</strong>, never the numbers — marks are lost for typing a figure into a formula.</span><span class="zh">公式一律用<strong>儲存格標籤</strong>，不要寫死數字——公式內出現數字會失分。</span></li>
+      </ul>
+      <div class="tablewrap">
+        <table>
+          <thead><tr>
+            <th><span class="bi"><span class="en">Reference</span><span class="zh">參照</span></span></th>
+            <th><span class="bi"><span class="en">What is locked</span><span class="zh">鎖住甚麼</span></span></th>
+            <th><span class="bi"><span class="en">Copy right</span><span class="zh">向右複製</span></span></th>
+            <th><span class="bi"><span class="en">Copy down</span><span class="zh">向下複製</span></span></th>
+          </tr></thead>
+          <tbody>
+            <tr><td><code>B3</code></td><td class="bi"><span class="en">nothing</span><span class="zh">不鎖</span></td><td>C3</td><td>B4</td></tr>
+            <tr><td><code>$B3</code></td><td class="bi"><span class="en">column B</span><span class="zh">B 欄</span></td><td>$B3</td><td>$B4</td></tr>
+            <tr><td><code>B$3</code></td><td class="bi"><span class="en">row 3</span><span class="zh">第 3 列</span></td><td>C$3</td><td>B$3</td></tr>
+            <tr><td><code>$B$3</code></td><td class="bi"><span class="en">both — never moves</span><span class="zh">兩者都鎖——永不變</span></td><td>$B$3</td><td>$B$3</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="bi"><span class="en">Read <code>$</code> as “stop here”: it freezes whatever follows it — a column letter or a row number.</span><span class="zh">把 <code>$</code> 讀成「停在這裏」：它凍結後面那一個元素——欄字母或列號碼。</span></p>
+
+      <h3 class="bi"><span class="en">IF has exactly three parts</span><span class="zh">IF 正好有三個部分</span></h3>
+      <div class="codeblock">
+        <div>=IF( <span class="c">condition</span> , <span class="c">value if TRUE</span> , <span class="c">value if FALSE</span> )</div>
+        <div>=IF(B3&gt;=50,"Pass","Fail")</div>
+      </div>
+      <ul class="clean">
+        <li class="bi"><span class="en">Text results go in double quotes; numbers, cell references and other formulas do not. Operators: <code>=</code> <code>&lt;&gt;</code> <code>&gt;</code> <code>&lt;</code> <code>&gt;=</code> <code>&lt;=</code>.</span><span class="zh">文字結果要加雙引號；數字、儲存格參照與其他公式不加。運算子：<code>=</code> <code>&lt;&gt;</code> <code>&gt;</code> <code>&lt;</code> <code>&gt;=</code> <code>&lt;=</code>。</span></li>
+        <li class="bi"><span class="en">Nested IF puts a whole IF inside one of the three parts — usually the FALSE part, where “everything else” lives.</span><span class="zh">巢狀 IF 把一整個 IF 放進三個部分的其中一個——通常在 FALSE 部分，即「其餘所有情況」。</span></li>
+      </ul>
+      <div class="codeblock">
+        <div>=IF(B3&gt;=80,"A",IF(B3&gt;=65,"B",IF(B3&gt;=50,"C","F")))</div>
+      </div>
+      <div class="card trap">
+        <div class="t"><span class="bi"><span class="en">Trap</span><span class="zh">易錯位</span></span></div>
+        <p class="bi"><span class="en">Count the IFs and count the closing brackets — they must be equal. A missing bracket is the most common lost mark in this section.</span><span class="zh">數一數 IF 的數目，再數右括號的數目——必須相等。漏括號是這部分最常見的失分原因。</span></p>
+      </div>
+      <p class="bi"><span class="en">Worth memorising: <code>SUM</code> <code>AVERAGE</code> <code>MAX</code> <code>MIN</code> <code>COUNT</code> <code>COUNTA</code> <code>COUNTIF</code> <code>SUMIF</code> <code>ROUND</code>.</span><span class="zh">要記住：<code>SUM</code> <code>AVERAGE</code> <code>MAX</code> <code>MIN</code> <code>COUNT</code> <code>COUNTA</code> <code>COUNTIF</code> <code>SUMIF</code> <code>ROUND</code>。</span></p>
+    </section>
+
+    <!-- 10 -->
+    <section id="s10">
+      <h2><span class="num">10</span><span class="bi"><span class="en">Cram sheet<span class="zh-sub">考前速記</span></span><span class="zh">考前速記<span class="zh-sub">Cram sheet</span></span></span></h2>
+      <p class="lead bi"><span class="en">Ten lines that between them cover most of the paper. Read them once before you go in.</span><span class="zh">以下十句已覆蓋大部分考卷。入場前讀一遍。</span></p>
+      <ul class="clean">
+        <li class="bi"><span class="en">A calculation across records makes it information; a raw fact is data.</span><span class="zh">跨紀錄計算得出的是資訊；原始事實是數據。</span></li>
+        <li class="bi"><span class="en">Efficiency measures the technology, effectiveness measures the business goal.</span><span class="zh">效率量度科技，效能量度業務目標。</span></li>
+        <li class="bi"><span class="en">Programming is stage 4; the DFD is stage 3; feasibility is stage 1.</span><span class="zh">程式編寫是第 4 階段；DFD 是第 3 階段；可行性研究是第 1 階段。</span></li>
+        <li class="bi"><span class="en">Malware is exactly four things: virus, trojan, spyware, adware.</span><span class="zh">惡意軟件正好四種：病毒、木馬、間諜軟件、廣告軟件。</span></li>
+        <li class="bi"><span class="en">Public encrypts, private decrypts; a CA vouches for the public key.</span><span class="zh">公鑰加密、私鑰解密；CA 為公鑰背書。</span></li>
+        <li class="bi"><span class="en">Authentication first (who), authorisation second (what).</span><span class="zh">先認證（你是誰），後授權（可做甚麼）。</span></li>
+        <li class="bi"><span class="en">Solver = variables + constraints + objective, and everything is a number.</span><span class="zh">求解器＝變數＋限制＋目標，全部是數字。</span></li>
+        <li class="bi"><span class="en">Intelligence is the most important of Simon's three stages.</span><span class="zh">Simon 三階段中，情報最重要。</span></li>
+        <li class="bi"><span class="en">TPS output is detailed and past-facing; DSS output is summarised and forward-looking.</span><span class="zh">TPS 輸出具體且面向過去；DSS 輸出彙總且面向未來。</span></li>
+        <li class="bi"><span class="en">$ freezes what follows it; two dollars freeze the whole address.</span><span class="zh">一個 $ 凍結其後那一個元素；兩個 $ 凍結整個位址。</span></li>
+      </ul>
+    </section>
+
+    <!-- MOCK -->
+    <section id="mock">
+      <h2><span class="num">11</span><span class="bi"><span class="en">Mock test<span class="zh-sub">模擬自測</span></span><span class="zh">模擬自測<span class="zh-sub">Mock test</span></span></span></h2>
+      <p class="lead bi"><span class="en">Fifteen questions, written in the format of the real paper: every question has <strong>two or more</strong> correct choices and scores 2 marks only when the set is exactly right. Choose every true statement — no credit for a partial answer.</span><span class="zh">十五題，完全依真實考卷格式：每題有<strong>兩個或以上</strong>正確選項，必須完全選對才得 2 分。把每個正確陳述都選上——部分正確不給分。</span></p>
+
+      <div class="mockbar">
+        <button class="btn" type="button" id="gradeBtn"><span class="bi"><span class="en">Submit</span><span class="zh">交卷</span></span></button>
+        <button class="btn ghost" type="button" id="revealBtn"><span class="bi"><span class="en">Reveal</span><span class="zh">顯示答案</span></span></button>
+        <button class="btn ghost" type="button" id="resetBtn"><span class="bi"><span class="en">Reset</span><span class="zh">重做</span></span></button>
+        <div class="score" id="score" aria-live="polite"><span class="bi"><span class="en">Not graded yet</span><span class="zh">尚未交卷</span></span></div>
+      </div>
+
+      <div id="questions"></div>
+
+      <div class="card tip" style="margin-top:1.4rem">
+        <div class="t"><span class="bi"><span class="en">How to use it twice</span><span class="zh">怎麼用兩次</span></span></div>
+        <p class="bi"><span class="en">First run: answer without notes, submit, and read every explanation — including the ones you got right. Second run: reset and repeat two days later. If you score 26/30 or more on the second run, you know the scope.</span><span class="zh">第一次：不看筆記作答、交卷，並逐題讀解釋（連答對的也讀）。第二次：兩天後重做。第二次若能拿到 26/30 或以上，這個範圍就穩了。</span></p>
+      </div>
+    </section>
+
+    <footer>
+      <p class="bi"><span class="en">CCIT4057 Information Management · mid-term revision page. Companion to the printable 89-page PDF study guide. Built for study use only.</span><span class="zh">CCIT4057 Information Management・期中考複習頁。可配合 89 頁可列印 PDF 手冊使用。僅供溫習用途。</span></p>
+      <p><a class="top bi" href="#s1"><span class="en">↑ Back to top</span><span class="zh">↑ 回到頂部</span></a></p>
+    </footer>
+  </main>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var MOCK = [{"n":1,"stem_en":"Which of the following are <b>information</b> rather than raw data?","stem_zh":"下列哪些屬於<b>資訊</b>，而非原始數據？","opts":[{"l":"A","en":"A telephone number, 9123 4567, taken from a customer form.","zh":"從客戶表格抄下的電話號碼 9123 4567。"},{"l":"B","en":"The average age of the forty students in a class.","zh":"一班四十名學生的平均年齡。"},{"l":"C","en":"A list of every item sold in a shop on one day.","zh":"商店一天內售出的每一件貨品清單。"},{"l":"D","en":"The percentage of marketing majors in a cohort who are female.","zh":"同一屆市場學主修學生中女性的百分比。"}],"key":["B","D"],"why_en":"<b>B</b> and <b>D</b> are information: a number was computed from many records to answer a question. <b>A</b> is a single raw fact and <b>C</b> is an unprocessed list of facts — both are data, however long they are. Length is not the test; processed meaning is.","why_zh":"<b>B</b> 與 <b>D</b> 是資訊：由多筆紀錄計算出來、用來回答問題的數字。<b>A</b> 是單一原始事實，<b>C</b> 是未經處理的事實清單——兩者都是數據，即使清單很長。判斷標準不是長短，而是是否經過處理而產生含義。"},{"n":2,"stem_en":"Which statements about IT metrics are correct?","stem_zh":"關於資訊科技的量度指標，哪些陳述正確？","opts":[{"l":"A","en":"Throughput is an efficiency metric because it measures the technology itself.","zh":"吞吐量屬效率指標，因為它量度的是科技本身。"},{"l":"B","en":"Customer satisfaction is easy to measure, which is why it is classed as an efficiency metric.","zh":"客戶滿意度容易量度，所以被歸類為效率指標。"},{"l":"C","en":"Conversion rate is an effectiveness metric: it counts customers persuaded to buy.","zh":"轉換率屬效能指標：它計算被說服購買的客戶。"},{"l":"D","en":"Response time measures how long a system takes to react to a user interaction.","zh":"回應時間量度系統對使用者互動作出反應所需的時間。"}],"key":["A","C","D"],"why_en":"<b>A</b> true: efficiency metrics monitor the technology. <b>B</b> false: customer satisfaction is an effectiveness metric precisely because it is hard to measure — the lecture asks “how do you measure it?”. <b>C</b> true: conversion rate is an effectiveness metric. <b>D</b> true: response time is the time to react to a user interaction such as a mouse click.","why_zh":"<b>A</b> 正確：效率指標監察科技本身。<b>B</b> 錯：客戶滿意度正是因為難以量度才屬效能指標——課堂反問「你怎樣量度它？」。<b>C</b> 正確：轉換率屬效能指標。<b>D</b> 正確：回應時間是對使用者互動（例如點擊滑鼠）作出反應的時間。"},{"n":3,"stem_en":"Which statements about the software development life cycle are correct?","stem_zh":"關於軟件開發生命週期，哪些陳述正確？","opts":[{"l":"A","en":"Programming, the writing of code, is stage 4 of the SDLC.","zh":"程式編寫——即寫程式碼——是 SDLC 的第四階段。"},{"l":"B","en":"The Data Flow Diagram is produced during the requirements definition stage.","zh":"資料流程圖在需求定義階段產生。"},{"l":"C","en":"Test plans and bug reports are deliverables of the testing and integration stage.","zh":"測試計劃與缺陷報告是測試與整合階段的交付物。"},{"l":"D","en":"The project plan is written once in stage 1 and should not be revised.","zh":"專案計劃在第一階段寫一次，之後不應修改。"}],"key":["A","C"],"why_en":"<b>A</b> true: programming is stage 4, one stage of six. <b>B</b> false: the Data Flow Diagram belongs to stage 3, system design and analysis — stage 2 delivers use case diagrams, user stories and process flow diagrams. <b>C</b> true. <b>D</b> false: the project plan must be continuously updated in every later phase, because on-time delivery within budget depends on how realistic it is.","why_zh":"<b>A</b> 正確：程式編寫是六個階段中的第四階段。<b>B</b> 錯：資料流程圖屬第三階段（系統設計與分析）——第二階段交付的是使用案例圖、使用者故事與流程圖。<b>C</b> 正確。<b>D</b> 錯：專案計劃在之後每個階段都必須持續更新，因為能否如期在預算內交付取決於它有多現實。"},{"n":4,"stem_en":"Which of these requirements are stated well enough to test?","stem_zh":"下列哪些需求的表述清楚到可以驗證？","opts":[{"l":"A","en":"“The system should be easy to use.”","zh":"「系統應該易於使用。」"},{"l":"B","en":"“Users can log in and out securely.”","zh":"「使用者可以安全地登入與登出。」"},{"l":"C","en":"“The system must handle large amounts of data.”","zh":"「系統必須處理大量數據。」"},{"l":"D","en":"“The page must respond within 2 seconds.”","zh":"「頁面必須在 2 秒內回應。」"}],"key":["B","D"],"why_en":"<b>A</b> is ambiguous: “easy to use” is subjective — easy for whom? <b>C</b> is ambiguous: “large amounts” has no number. <b>B</b> is testable (a login that accepts and rejects correctly, a session that ends) and <b>D</b> is testable (measure the time). Unambiguous requirements either carry a number or name an observable behaviour.","why_zh":"<b>A</b> 含糊：「易於使用」是主觀的——對誰容易？<b>C</b> 含糊：「大量」沒有數字。<b>B</b> 可驗證（登入能正確接受與拒絕、工作階段會結束），<b>D</b> 亦可驗證（可量度時間）。不含糊的需求，要麼帶有數字，要麼指出可觀察的行為。"},{"n":5,"stem_en":"Which statements about malware are correct?","stem_zh":"關於惡意軟件，哪些陳述正確？","opts":[{"l":"A","en":"A trojan horse hides within, or looks like, a legitimate program and opens a back door.","zh":"木馬藏身於合法程式之內或偽裝成合法程式，並開啟後門。"},{"l":"B","en":"Spyware may take the form of a key-logger or a screen capturer.","zh":"間諜軟件可以以鍵盤記錄器或螢幕擷取器的形式出現。"},{"l":"C","en":"A virus that does no deliberate damage is harmless, because it changes nothing.","zh":"沒有刻意破壞的病毒是無害的，因為它不改變任何東西。"},{"l":"D","en":"Adware displays unwanted advertisements in the interface or during installation.","zh":"廣告軟件在介面中或安裝過程中顯示不受歡迎的廣告。"}],"key":["A","B","D"],"why_en":"<b>C</b> is false and it is the classic trap: even a virus that does no deliberate damage occupies memory and consumes CPU time, slowing the computer — so it is still harmful. <b>A</b>, <b>B</b> and <b>D</b> are the lecture definitions of trojan horse, spyware and adware.","why_zh":"<b>C</b> 錯，而且是最經典的陷阱：即使病毒沒有刻意破壞，仍會佔用記憶體、消耗 CPU 時間，令電腦變慢——所以仍屬有害。<b>A</b>、<b>B</b>、<b>D</b> 正是課堂對木馬、間諜軟件與廣告軟件的定義。"},{"n":6,"stem_en":"Which statements about confidentiality, integrity and availability are correct?","stem_zh":"關於機密性、完整性與可用性，哪些陳述正確？","opts":[{"l":"A","en":"Confidentiality is protection from unauthorised disclosure.","zh":"機密性就是防止未經授權的披露。"},{"l":"B","en":"Protecting census information from unauthorised modification is an integrity concern.","zh":"保護人口普查資料免受未經授權修改，屬完整性考量。"},{"l":"C","en":"Availability matters most for life-support and safety-critical systems.","zh":"可用性對生命維持與安全關鍵系統最為重要。"},{"l":"D","en":"Encryption is the control that protects availability.","zh":"加密是保護可用性的措施。"}],"key":["A","B","C"],"why_en":"<b>D</b> is false: encryption protects confidentiality (and, with signatures, integrity) — it does not keep a service running. Availability is protected by redundancy, backups and anti-DDoS measures. <b>A</b>, <b>B</b> and <b>C</b> are the lecture's own examples of the three properties.","why_zh":"<b>D</b> 錯：加密保護的是機密性（配合簽章亦可保護完整性）——它不會令服務持續運作。可用性靠備援、備份與抗 DDoS 措施保護。<b>A</b>、<b>B</b>、<b>C</b> 正是課堂就三種特性所舉的例子。"},{"n":7,"stem_en":"Which statements about firewalls, DMZs and authentication are correct?","stem_zh":"關於防火牆、DMZ 與認證，哪些陳述正確？","opts":[{"l":"A","en":"A firewall filters incoming and outgoing traffic between a LAN and a WAN.","zh":"防火牆過濾區域網絡與廣域網絡之間的進出流量。"},{"l":"B","en":"Firewall policy configuration is simple, so configuration errors are rare.","zh":"防火牆政策設定簡單，因此設定錯誤罕見。"},{"l":"C","en":"A DMZ limits how far an attacker gets after breaking through the outer firewall.","zh":"DMZ 限制入侵者突破外層防火牆後能到達的範圍。"},{"l":"D","en":"Authentication verifies a person's identity before access is granted.","zh":"認證在授予存取前驗證某人身份。"}],"key":["A","C","D"],"why_en":"<b>B</b> is false: the lecture stresses that firewall policy rules are complex and error-prone, so a configuration error itself becomes a security hole. <b>A</b> is the firewall definition, <b>C</b> is the purpose of the DMZ, and <b>D</b> is the definition of authentication — which is a higher level than a password check.","why_zh":"<b>B</b> 錯：課堂強調防火牆政策規則複雜易錯，因此設定錯誤本身就成了安全漏洞。<b>A</b> 是防火牆的定義，<b>C</b> 是 DMZ 的目的，<b>D</b> 是認證的定義——它比單純核對密碼層次更高。"},{"n":8,"stem_en":"Which statements about digital certificates are correct?","stem_zh":"關於數位證書，哪些陳述正確？","opts":[{"l":"A","en":"A certificate is issued and managed by a Certificate Authority.","zh":"證書由憑證機構簽發與管理。"},{"l":"B","en":"Data encrypted with the subject's public key can be decrypted with that same public key.","zh":"以主體的公鑰加密的數據，可以用同一把公鑰解密。"},{"l":"C","en":"The certificate certifies ownership of a public key by the named subject.","zh":"證書證明具名主體擁有某個公鑰。"},{"l":"D","en":"In Hong Kong a digital signature has the same legal status as a handwritten signature.","zh":"在香港，數位簽章與親筆簽名具同等法律地位。"}],"key":["A","C","D"],"why_en":"<b>B</b> is false and it is the most common error in the whole topic: asymmetric encryption is a <i>pair</i>. Data encrypted with the public key can only be decrypted with the corresponding <b>private</b> key; that is what makes it secure. <b>A</b>, <b>C</b> and <b>D</b> are the lecture's statements about the CA, the certified ownership of the public key, and the legal status of digital signatures in Hong Kong.","why_zh":"<b>B</b> 錯，而且是整章最常見的錯誤：非對稱加密是<i>一對</i>金鑰。以公鑰加密的數據，只有對應的<b>私鑰</b>能解密——這正是它安全的原因。<b>A</b>、<b>C</b>、<b>D</b> 分別是課堂關於 CA、公鑰擁有權認證，以及香港數位簽章法律地位的陳述。"},{"n":9,"stem_en":"Which statements about a solver model are correct?","stem_zh":"關於求解器模型，哪些陳述正確？","opts":[{"l":"A","en":"The objective is the measure to optimise, entered as the target cell.","zh":"目標函數是要優化的量度，以目標儲存格輸入。"},{"l":"B","en":"Constraints are the limits on resource usage.","zh":"限制條件是資源使用的上限與下限。"},{"l":"C","en":"Decision variables are the changing cells, usually measuring amounts of resources.","zh":"決策變數就是變動儲存格，通常量度資源數量。"},{"l":"D","en":"A solver can optimise qualitative judgements such as staff morale.","zh":"求解器可以優化士氣等定性判斷。"}],"key":["A","B","C"],"why_en":"<b>D</b> is false: “a solver deals with numbers” — everything must be quantified, so qualitative judgements such as morale cannot be optimised directly. <b>A</b>, <b>B</b> and <b>C</b> are the three parts of the model, matching target cell, constraints and changing cells.","why_zh":"<b>D</b> 錯：「求解器只處理數字」——一切都必須量化，因此士氣等定性判斷不能直接優化。<b>A</b>、<b>B</b>、<b>C</b> 正是模型的三個部分，分別對應目標儲存格、限制條件與變動儲存格。"},{"n":10,"stem_en":"Which statements about solver engines and sensitivity analysis are correct?","stem_zh":"關於求解引擎與敏感度分析，哪些陳述正確？","opts":[{"l":"A","en":"Simplex LP is the engine for linear models.","zh":"Simplex LP 是線性模型的引擎。"},{"l":"B","en":"GRG Nonlinear is the engine for smooth non-linear models.","zh":"GRG Nonlinear 是平滑非線性模型的引擎。"},{"l":"C","en":"Sensitivity analysis apportions uncertainty in the output to uncertainty in the inputs.","zh":"敏感度分析把輸出的不確定性分攤到輸入的不確定性。"},{"l":"D","en":"An optimisation model merely finds any solution that satisfies the constraints.","zh":"最優化模型只需找出任何滿足限制條件的解。"}],"key":["A","B","C"],"why_en":"<b>D</b> is false: finding <i>any</i> feasible solution is satisficing; optimisation finds the <i>best</i> solution relative to the constraints, assumptions and goals. <b>A</b>, <b>B</b> and <b>C</b> are the two linear/non-linear engines and the definition of sensitivity analysis.","why_zh":"<b>D</b> 錯：找出<i>任何</i>可行解屬滿意化；最優化是在限制、假設與目標下找出<i>最佳</i>解。<b>A</b>、<b>B</b> 是線性與非線性兩個引擎，<b>C</b> 是敏感度分析的定義。"},{"n":11,"stem_en":"Which statements about decision support systems are correct?","stem_zh":"關於決策支援系統，哪些陳述正確？","opts":[{"l":"A","en":"A DSS focuses on decision-making effectiveness at various decision-making levels.","zh":"DSS 聚焦於各決策層級的決策效能。"},{"l":"B","en":"A DSS is used mostly by mid-level and top-level management.","zh":"DSS 主要供中階與高階管理層使用。"},{"l":"C","en":"A DSS is only useful for structured, programmable decisions.","zh":"DSS 只對結構化、可程式化的決策有用。"},{"l":"D","en":"In Herbert Simon's model, intelligence is the most important stage, because defining the wrong problem wastes the whole effort.","zh":"在 Herbert Simon 的模型中，情報是最重要的階段，因為定義錯問題會浪費整個努力。"}],"key":["A","B","D"],"why_en":"<b>C</b> is false: a DSS is particularly useful for semi-structured, poorly structured or unstructured situations — that is its whole point. <b>A</b> is the definition, <b>B</b> is the level it serves (mid and top, less at the bottom), and <b>D</b> is Simon's emphasis on the intelligence stage.","why_zh":"<b>C</b> 錯：DSS 對半結構化、結構不良或非結構化的情境特別有用——這正是它的意義。<b>A</b> 是定義，<b>B</b> 是它服務的層級（中階與高階，基層較少），<b>D</b> 是 Simon 對情報階段的重視。"},{"n":12,"stem_en":"Which are characteristics of a DSS?","stem_zh":"下列哪些是 DSS 的特徵？","opts":[{"l":"A","en":"Its output is predictive: it concerns future events such as forecasts of economic conditions.","zh":"其輸出具預測性：關乎未來事件，例如經濟狀況預測。"},{"l":"B","en":"It presents information in summary form rather than in detail.","zh":"它以彙總形式而非細節形式呈現資訊。"},{"l":"C","en":"Most of its inputs come from the organisation's own TPS.","zh":"其輸入大多來自組織自身的 TPS。"},{"l":"D","en":"Its inputs are often subjective opinions whose accuracy may be suspect.","zh":"其輸入常是主觀意見，準確性可能受質疑。"}],"key":["A","B","D"],"why_en":"<b>C</b> is false: the lecture says most DSS inputs come from <i>outside</i> the firm — investment opportunities, borrowing rates, census data, government economic data. TPS supplies transactional facts, but a DSS deliberately adds external and subjective material. <b>A</b>, <b>B</b> and <b>D</b> are three of the six characteristics (predictive, summary, subjectivity).","why_zh":"<b>C</b> 錯：課堂指出 DSS 的輸入大多來自公司<i>以外</i>——投資機會、借貸利率、人口普查數據、政府經濟數據。TPS 提供交易事實，但 DSS 有意加入外部與主觀素材。<b>A</b>、<b>B</b>、<b>D</b> 是六項特徵中的三項（預測性、彙總形式、主觀性）。"},{"n":13,"stem_en":"Which statements about batch and on-line processing are correct?","stem_zh":"關於批次與線上處理，哪些陳述正確？","opts":[{"l":"A","en":"Batch processing accumulates transactions and processes them later as one unit.","zh":"批次處理把交易累積起來，之後以單一批次處理。"},{"l":"B","en":"On-line processing updates the affected records immediately.","zh":"線上處理即時更新相關紀錄。"},{"l":"C","en":"Airline reservation and stock-market trading are typical on-line applications.","zh":"航空公司訂位與股票買賣是典型的線上應用。"},{"l":"D","en":"Batch processing is preferred when transactions are urgent.","zh":"交易緊急時應優先採用批次處理。"}],"key":["A","B","C"],"why_en":"<b>D</b> is false: on-line processing is chosen precisely when transactions are urgent and data must be updated quickly; batch is chosen when a delay is acceptable. <b>A</b> and <b>B</b> are the two definitions, and <b>C</b> lists two of the lecture's on-line examples.","why_zh":"<b>D</b> 錯：正因為交易緊急、數據必須快速更新，才會選用線上處理；批次處理用於可以接受延誤的情況。<b>A</b>、<b>B</b> 是兩種定義，<b>C</b> 列出課堂兩個線上處理例子。"},{"n":14,"stem_en":"Which of these are among the six data processing activities common to all TPSs?","stem_zh":"下列哪些屬於所有 TPS 共有的六項資料處理活動？","opts":[{"l":"A","en":"Data editing, which performs validity and completeness checks on input.","zh":"資料編輯：對輸入進行有效性與完整性檢查。"},{"l":"B","en":"Data correction, which re-enters mis-keyed or mis-scanned data.","zh":"資料修正：重新輸入誤鍵或誤掃的資料。"},{"l":"C","en":"Data storage, which updates databases so that MIS and DSS can use the data.","zh":"資料儲存：更新資料庫，供 MIS 與 DSS 使用。"},{"l":"D","en":"Data deletion, which removes transactions that are older than one year.","zh":"資料刪除：移除超過一年的交易。"}],"key":["A","B","C"],"why_en":"<b>D</b> is invented: the six activities are collection, editing, correction, manipulation, storage and document/report production — there is no “data deletion” step, because a TPS records history rather than erasing it. <b>A</b>, <b>B</b> and <b>C</b> are activities two, three and five.","why_zh":"<b>D</b> 是虛構的：六項活動是收集、編輯、修正、處理、儲存與文件／報表產生——沒有「資料刪除」這一步，因為 TPS 記錄歷史而非抹除歷史。<b>A</b>、<b>B</b>、<b>C</b> 分別是第二、第三與第五項活動。"},{"n":15,"stem_en":"Which statements about e-commerce are correct?","stem_zh":"關於電子商務，哪些陳述正確？","opts":[{"l":"A","en":"In B2B e-commerce all participants are organisations.","zh":"在 B2B 電子商務中，所有參與者都是組織。"},{"l":"B","en":"Intel selling micro-processors to Dell is an example of B2C.","zh":"Intel 向 Dell 售賣微處理器是 B2C 的例子。"},{"l":"C","en":"eBay, where individuals buy and sell second-hand items, is C2C.","zh":"eBay 讓個人直接買賣二手物品，屬 C2C。"},{"l":"D","en":"The Internet is best described as a network of networks.","zh":"互聯網最恰當的描述是「網絡的網絡」。"}],"key":["A","C","D"],"why_en":"<b>B</b> is false: Intel and Dell are both organisations, so it is B2B — the fact that the chip later reaches a consumer does not change the transaction. <b>A</b>, <b>C</b> and <b>D</b> are the lecture's definitions, including the C2C example (eBay as platform, not seller) and the “network of networks” phrase.","why_zh":"<b>B</b> 錯：Intel 與 Dell 都是組織，故屬 B2B——晶片日後進入消費產品並不改變該筆交易的性質。<b>A</b>、<b>C</b>、<b>D</b> 都是課堂定義，包括 C2C 的例子（eBay 是平台而非賣方）與「網絡的網絡」一語。"}];
+
+  /* ---------- language ---------- */
+  var root = document.documentElement;
+  var buttons = Array.prototype.slice.call(document.querySelectorAll("[data-set-lang]"));
+  function setLang(lang){
+    root.setAttribute("data-lang", lang);
+    root.setAttribute("lang", lang === "zh" ? "zh-Hant" : "en-GB");
+    buttons.forEach(function(b){
+      b.setAttribute("aria-pressed", String(b.getAttribute("data-set-lang") === lang));
+    });
+    try { localStorage.setItem("ifm-lang", lang); } catch(e){}
+  }
+  buttons.forEach(function(b){
+    b.addEventListener("click", function(){ setLang(b.getAttribute("data-set-lang")); });
+  });
+  var saved = null;
+  try { saved = localStorage.getItem("ifm-lang"); } catch(e){}
+  setLang(saved === "en" || saved === "zh" ? saved : "zh");
+
+  /* ---------- nav highlight ---------- */
+  var links = Array.prototype.slice.call(document.querySelectorAll("nav.toc a"));
+  var map = {};
+  links.forEach(function(a){ map[a.getAttribute("href").slice(1)] = a; });
+  var sections = Array.prototype.slice.call(document.querySelectorAll("main section"));
+  if ("IntersectionObserver" in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        var a = map[en.target.id];
+        if (!a) return;
+        if (en.isIntersecting){
+          links.forEach(function(x){ x.classList.remove("active"); });
+          a.classList.add("active");
+        }
+      });
+    }, {rootMargin: "-96px 0px -70% 0px", threshold: 0});
+    sections.forEach(function(s){ io.observe(s); });
+  }
+
+  /* ---------- mock test ---------- */
+  var host = document.getElementById("questions");
+  var graded = false;
+
+  function el(tag, cls, html){
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (html != null) n.innerHTML = html;
+    return n;
+  }
+  function bi(en, zh){
+    return '<span class="bi"><span class="en">' + en + '</span><span class="zh">' + zh + '</span></span>';
+  }
+  function letters(arr){ return arr.join(", "); }
+
+  function build(){
+    host.innerHTML = "";
+    graded = false;
+    MOCK.forEach(function(q){
+      var card = el("div", "q");
+      card.id = "q" + q.n;
+      card.dataset.n = q.n;
+
+      var head = el("div", "q-head");
+      head.appendChild(el("span", "q-n", "Q" + q.n));
+      head.appendChild(el("span", "q-stem", bi(q.stem_en, q.stem_zh)));
+      card.appendChild(head);
+
+      var ul = el("ul", "opts");
+      q.opts.forEach(function(o){
+        var li = el("li", "opt");
+        li.dataset.letter = o.l;
+        var id = "q" + q.n + o.l;
+        li.innerHTML =
+          '<input type="checkbox" id="' + id + '" value="' + o.l + '">' +
+          '<label class="l" for="' + id + '">' + o.l + '</label>' +
+          '<span class="txt">' + bi(o.en, o.zh) + '</span>';
+        ul.appendChild(li);
+      });
+      card.appendChild(ul);
+
+      var v = el("div", "verdict");
+      v.innerHTML = '<div class="tag"></div><div class="keyline"></div><div class="expl"></div>';
+      card.appendChild(v);
+
+      host.appendChild(card);
+    });
+  }
+
+  function selected(n){
+    return Array.prototype.slice.call(
+      host.querySelectorAll('#q' + n + ' input:checked')
+    ).map(function(i){ return i.value; }).sort();
+  }
+
+  function grade(showUnanswered){
+    var score = 0, answered = 0;
+    MOCK.forEach(function(q){
+      var card = document.getElementById("q" + q.n);
+      var picked = selected(q.n);
+      if (picked.length) answered++;
+      var exact = picked.length === q.key.length &&
+                  picked.every(function(l, i){ return l === q.key.slice().sort()[i]; });
+      if (exact) score += 2;
+
+      card.classList.add("graded");
+      card.classList.toggle("ok", exact);
+      card.classList.toggle("bad", !exact);
+
+      Array.prototype.forEach.call(card.querySelectorAll(".opt"), function(li){
+        var l = li.dataset.letter;
+        li.classList.toggle("right", q.key.indexOf(l) > -1);
+        li.classList.toggle("wrong", picked.indexOf(l) > -1 && q.key.indexOf(l) === -1);
+      });
+
+      var tag = card.querySelector(".verdict .tag");
+      tag.textContent = exact ? "✓ 2 / 2" : "✗ 0 / 2";
+      var keyline = card.querySelector(".verdict .keyline");
+      var missed = q.key.filter(function(l){ return picked.indexOf(l) === -1; });
+      var extra = picked.filter(function(l){ return q.key.indexOf(l) === -1; });
+      var parts = [];
+      parts.push(bi("Answer: <span class='key'>" + letters(q.key) + "</span>",
+                    "答案：<span class='key'>" + letters(q.key) + "</span>"));
+      if (missed.length) parts.push(bi("You missed " + letters(missed) + ".", "你漏選了 " + letters(missed) + "。"));
+      if (extra.length) parts.push(bi("You added " + letters(extra) + ".", "你多選了 " + letters(extra) + "。"));
+      keyline.innerHTML = parts.join(" &nbsp;·&nbsp; ");
+      card.querySelector(".verdict .expl").innerHTML = bi(q.why_en, q.why_zh);
+
+      card.querySelectorAll("input").forEach(function(i){ i.disabled = true; });
+    });
+
+    graded = true;
+    var out = document.getElementById("score");
+    out.innerHTML = bi("<b>" + score + "</b> / 30 &nbsp;·&nbsp; " + answered + "/15 answered",
+                       "<b>" + score + "</b> / 30 &nbsp;·&nbsp; 已作答 " + answered + "/15");
+    return score;
+  }
+
+  document.getElementById("gradeBtn").addEventListener("click", function(){ grade(false); });
+
+  document.getElementById("revealBtn").addEventListener("click", function(){
+    MOCK.forEach(function(q){
+      var card = document.getElementById("q" + q.n);
+      card.querySelectorAll("input").forEach(function(i){ i.checked = q.key.indexOf(i.value) > -1; });
+    });
+    grade(true);
+  });
+
+  document.getElementById("resetBtn").addEventListener("click", function(){
+    build();
+    document.getElementById("score").innerHTML = bi("Not graded yet", "尚未交卷");
+  });
+
+  build();
+})();
+</script>
+</body>
+</html>

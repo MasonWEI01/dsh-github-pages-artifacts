@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "artifacts": {
+    "ifm-information-management-revision-o7dpck": {
+      "id": "ifm-information-management-revision-o7dpck",
+      "title": "IFM 期中考複習 · Information Management Revision",
+      "kind": "html",
+      "createdAt": "2026-11-25T12:55:23.292Z",
+      "updatedAt": "2026-11-25T12:55:23.292Z",
+      "rev": 1,
+      "files": [
+        "index.html"
+      ],
+      "description": "CCIT4057 Information Management 期中考精簡複習頁：9 個課題重點、右上角 English (UK)/繁中 切換、可導航目錄、15 題自動批改多選模擬自測。"
+    }
+  },
+  "tombstones": []
+}
